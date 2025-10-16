@@ -1,5 +1,7 @@
 package calculator.parser;
 
+import java.util.regex.Pattern;
+
 public class Parser {
 
     private static final String DEFAULT_DELIMITER = ",|:";
@@ -18,7 +20,9 @@ public class Parser {
         // 숫자 부분 받기
         String numberPart = extractNumberPart(input);
         // 분리하기
+        customDelimiter = escapeRegex(customDelimiter);
         String delimiters = DEFAULT_DELIMITER + "|" + customDelimiter;
+        // 특수문자 처리 문제
         return numberPart.split(delimiters);
     }
 
@@ -53,5 +57,8 @@ public class Parser {
         return input.substring(start + CUSTOM_DELIMITER_SUFFIX.length());
     }
 
+    private static String escapeRegex(String customDelimiter) {
+        return Pattern.quote(customDelimiter);
+    }
 
 }

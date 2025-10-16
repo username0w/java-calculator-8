@@ -37,6 +37,14 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 커스텀_구분자_점_사용() {
+        assertSimpleTest(() -> {
+            run("//.\\n12,20,23,5");
+            assertThat(output()).contains("결과 : 60");
+        });
+    }
+
+    @Test
     void 두자리_이상_숫자_사용() {
         assertSimpleTest(() -> {
             run("20:2,320");
