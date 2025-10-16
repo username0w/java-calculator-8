@@ -13,7 +13,7 @@ public class Application {
         int output = 0;
 
         String input = InputView.readInput();
-        if (input.equals("0")) {
+        if (input.isEmpty()) {
             OutputView.printResult(output);
             return;
         }
