@@ -21,6 +21,7 @@ public class Application {
 
         List<Integer> numbers = NumberConverter.toIntegers(parsedInput);
         Numbers validNumbers = Numbers.create(numbers);
+        output = validNumbers.sum();
 
         System.out.println("결과 : " + output);
     }

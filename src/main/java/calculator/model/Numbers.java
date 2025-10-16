@@ -23,6 +23,12 @@ public class Numbers {
         }
     }
 
+    public int sum() {
+        return numbers.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
     @Override
     public String toString() {
         return "Numbers{" + "values=" + numbers + '}';
