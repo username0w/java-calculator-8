@@ -4,6 +4,7 @@ import calculator.converter.NumberConverter;
 import calculator.model.Numbers;
 import calculator.parser.Parser;
 import calculator.view.InputView;
+import calculator.view.OutputView;
 import java.util.List;
 
 public class Application {
@@ -13,7 +14,7 @@ public class Application {
 
         String input = InputView.readInput();
         if (input.equals("0")) {
-            System.out.println("결과 : " + output);
+            OutputView.printResult(output);
             return;
         }
 
@@ -23,6 +24,6 @@ public class Application {
         Numbers validNumbers = Numbers.create(numbers);
         output = validNumbers.sum();
 
-        System.out.println("결과 : " + output);
+        OutputView.printResult(output);
     }
 }
