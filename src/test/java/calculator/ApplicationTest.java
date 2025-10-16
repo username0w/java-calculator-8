@@ -44,6 +44,14 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void 실수_숫자_사용() {
+        assertSimpleTest(() -> {
+            run("2.0:2,320");
+            assertThat(output()).contains("결과 : 324");
+        });
+    }
+
     @DisplayName("0 입력 시 예외가 발생한다.")
     @ParameterizedTest
     @ValueSource(strings = {"//;\\n1;0;3", "0"})

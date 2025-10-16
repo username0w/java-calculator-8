@@ -10,7 +10,7 @@ import java.util.List;
 public class Application {
 
     public static void main(String[] args) {
-        int output = 0;
+        double output = 0;
 
         String input = InputView.readInput();
         if (input.isEmpty()) {
@@ -20,7 +20,7 @@ public class Application {
 
         String[] parsedInput = Parser.parse(input);
 
-        List<Integer> numbers = NumberConverter.toIntegers(parsedInput);
+        List<Double> numbers = NumberConverter.toDoubles(parsedInput);
         Numbers validNumbers = Numbers.create(numbers);
         output = validNumbers.sum();
 

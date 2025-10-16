@@ -4,28 +4,28 @@ import java.util.List;
 
 public class Numbers {
 
-    private final List<Integer> numbers;
+    private final List<Double> numbers;
 
-    private Numbers(List<Integer> numbers) {
+    private Numbers(List<Double> numbers) {
         this.numbers = numbers;
     }
 
-    public static Numbers create(List<Integer> numbers) {
+    public static Numbers create(List<Double> numbers) {
         validateNumbers(numbers);
         return new Numbers(numbers);
     }
 
-    private static void validateNumbers(List<Integer> numbers) {
-        for (Integer number : numbers) {
-            if (number <= 0) {
+    private static void validateNumbers(List<Double> numbers) {
+        for (Double number : numbers) {
+            if (number <= 0.0) {
                 throw new IllegalArgumentException("양수만 입력 가능합니다.");
             }
         }
     }
 
-    public int sum() {
+    public double sum() {
         return numbers.stream()
-                .mapToInt(Integer::intValue)
+                .mapToDouble(Double::doubleValue)
                 .sum();
     }
 
