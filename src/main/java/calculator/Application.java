@@ -1,6 +1,7 @@
 package calculator;
 
 import calculator.converter.NumberConverter;
+import calculator.model.Numbers;
 import calculator.parser.Parser;
 import calculator.view.InputView;
 import java.util.List;
@@ -19,6 +20,7 @@ public class Application {
         String[] parsedInput = Parser.parse(input);
 
         List<Integer> numbers = NumberConverter.toIntegers(parsedInput);
+        Numbers validNumbers = Numbers.create(numbers);
 
         System.out.println("결과 : " + output);
     }
