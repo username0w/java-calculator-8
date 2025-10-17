@@ -15,7 +15,7 @@ class ApplicationTest extends NsTest {
     @Test
     void 빈_문자열_입력() {
         assertSimpleTest(() -> {
-            run(" ");
+            run(",,");
             assertThat(output()).contains("결과 : 0");
         });
     }
@@ -91,6 +91,15 @@ class ApplicationTest extends NsTest {
     void 예외_커스텀_구분자_추가_지정() { // 이건 문자열 입력 오류로 처리
         assertSimpleTest(() -> {
             assertThatThrownBy(() -> run("//;\\n1,3;12//#\\n#2"))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
+        });
+    }
+
+    @Test
+    void 예외_공백문자_입력() {
+        assertSimpleTest(() -> {
+            assertThatThrownBy(() -> run("3, ,12"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
         });
