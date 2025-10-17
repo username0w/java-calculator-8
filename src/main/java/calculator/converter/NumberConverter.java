@@ -8,6 +8,9 @@ public class NumberConverter {
     public static List<Double> toDoubles(String[] input) {
         List<Double> result = new ArrayList<>();
         for (String s : input) {
+            if (s.isEmpty()) {
+                s = "0";
+            }
             try {
                 result.add(Double.parseDouble(s));
             } catch (NumberFormatException e) {
