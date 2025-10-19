@@ -10,7 +10,7 @@ public class DelimiterResolver {
     public static Delimiter resolve(String input) {
 
         if (!hasCustomDelimiter(input)) {
-            return new Delimiter(null); // 기본 구분자
+            return new Delimiter(List.of()); // 기본 구분자
         }
 
         // 커스텀 문자 추출하기
