@@ -1,8 +1,8 @@
 package calculator;
 
 import calculator.controller.CalculatorController;
-import calculator.serivce.CalculatorService;
-import calculator.serivce.CalculatorServiceImpl;
+import calculator.service.CalculatorService;
+import calculator.service.CalculatorServiceImpl;
 import calculator.view.ConsoleInputView;
 import calculator.view.ConsoleOutputView;
 import calculator.view.InputView;

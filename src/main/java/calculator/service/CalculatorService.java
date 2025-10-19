@@ -1,4 +1,4 @@
-package calculator.serivce;
+package calculator.service;
 
 public interface CalculatorService {
 

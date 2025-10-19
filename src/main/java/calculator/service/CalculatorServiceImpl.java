@@ -1,4 +1,4 @@
-package calculator.serivce;
+package calculator.service;
 
 import calculator.converter.NumberConverter;
 import calculator.model.Numbers;
