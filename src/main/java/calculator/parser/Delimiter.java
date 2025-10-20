@@ -22,9 +22,6 @@ public class Delimiter {
 
     public String getRegex() {
         List<String> all = new ArrayList<>(DEFAULT);
-        if (custom == null) {
-            return String.join("|", all);
-        }
         all.addAll(custom);
         return all.stream()
                 .map(Pattern::quote)
