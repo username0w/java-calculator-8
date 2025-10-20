@@ -4,45 +4,90 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class NumberConverterTest {
 
-    @Test
-    void shouldSucceed_whenValidPositiveString() {
-        List<Double> convertedNumbers = NumberConverter.toDoubles(new String[]{"1", "2.0", "3"});
-        assertThat(convertedNumbers).isEqualTo(List.of(1.0, 2.0, 3.0));
-    }
+    @Nested
+    @DisplayName("toDoubles 메서드 테스트")
+    class ToDoubles {
 
-    @Test
-    void shouldSucceed_whenValidStringWithZero() {
-        List<Double> convertedNumbers = NumberConverter.toDoubles(new String[]{"0", "0.0", "2"});
-        assertThat(convertedNumbers).isEqualTo(List.of(0.0, 0.0, 2.0));
-    }
+        @Test
+        @DisplayName("유효한 양수 문자열 배열을 변환한다")
+        void shouldSucceed_whenValidPositiveString() {
+            // given
+            String[] input = {"1", "2.0", "3"};
 
-    @Test
-    void shouldSucceed_whenValidNegativeString() {
-        List<Double> convertedNumbers = NumberConverter.toDoubles(new String[]{"-1", "0.0", "-2"});
-        assertThat(convertedNumbers).isEqualTo(List.of(-1.0, 0.0, -2.0));
-    }
+            // when
+            List<Double> convertedNumbers = NumberConverter.toDoubles(input);
 
-    @Test
-    void shouldSucceed_whenEmptyString() {
-        List<Double> convertedNumbers = NumberConverter.toDoubles(new String[]{"-1", "0.0", ""});
-        assertThat(convertedNumbers).isEqualTo(List.of(-1.0, 0.0, 0.0));
-    }
+            // then
+            assertThat(convertedNumbers).isEqualTo(List.of(1.0, 2.0, 3.0));
+        }
 
-    @Test
-    void shouldThrow_whenInvalidString() {
-        assertThatThrownBy(() -> NumberConverter.toDoubles(new String[]{"-1", "a"}))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
-    }
+        @Test
+        @DisplayName("0을 포함한 유효한 문자열 배열을 변환한다")
+        void shouldSucceed_whenValidStringWithZero() {
+            // given
+            String[] input = {"0", "0.0", "2"};
 
-    @Test
-    void shouldThrow_whenBlankString() {
-        assertThatThrownBy(() -> NumberConverter.toDoubles(new String[]{" ", "a"}))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
+            // when
+            List<Double> convertedNumbers = NumberConverter.toDoubles(input);
+
+            // then
+            assertThat(convertedNumbers).isEqualTo(List.of(0.0, 0.0, 2.0));
+        }
+
+        @Test
+        @DisplayName("음수를 포함한 유효한 문자열 배열을 변환한다")
+        void shouldSucceed_whenValidNegativeString() {
+            // given
+            String[] input = {"-1", "0.0", "-2"};
+
+            // when
+            List<Double> convertedNumbers = NumberConverter.toDoubles(input);
+
+            // then
+            assertThat(convertedNumbers).isEqualTo(List.of(-1.0, 0.0, -2.0));
+        }
+
+        @Test
+        @DisplayName("빈 문자열이 포함된 경우 0.0으로 변환한다")
+        void shouldSucceed_whenEmptyString() {
+            // given
+            String[] input = {"-1", "0.0", ""};
+
+            // when
+            List<Double> convertedNumbers = NumberConverter.toDoubles(input);
+
+            // then
+            assertThat(convertedNumbers).isEqualTo(List.of(-1.0, 0.0, 0.0));
+        }
+
+        @Test
+        @DisplayName("숫자로 변환 불가능한 문자가 포함되면 예외를 던진다")
+        void shouldThrow_whenInvalidString() {
+            // given
+            String[] input = {"-1", "a"};
+
+            // when & then
+            assertThatThrownBy(() -> NumberConverter.toDoubles(input))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
+        }
+
+        @Test
+        @DisplayName("공백 문자열이 포함되면 예외를 던진다")
+        void shouldThrow_whenBlankString() {
+            // given
+            String[] input = {" ", "a"};
+
+            // when & then
+            assertThatThrownBy(() -> NumberConverter.toDoubles(input))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
+        }
     }
 }

@@ -2,31 +2,60 @@ package calculator.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class DelimiterResolverTest {
 
-    @Test
-    void 커스텀구분자가_없는_경우_기본_Delimiter_반환() {
-        String input = "1,2,3";
-        Delimiter delimiter = DelimiterResolver.resolve(input);
+    @Nested
+    @DisplayName("resolve 메서드 테스트")
+    class Resolve {
 
-        assertThat(delimiter.getRegex()).contains(",").contains(":");
+        @Test
+        @DisplayName("커스텀 구분자가 없으면 기본 구분자 반환")
+        void shouldReturnDefaultDelimiter_whenNoCustomDelimiter() {
+            // given
+            String input = "1,2,3";
+
+            // when
+            Delimiter delimiter = DelimiterResolver.resolve(input);
+
+            // then
+            assertThat(delimiter.getRegex()).contains(",").contains(":");
+        }
+
+        @Test
+        @DisplayName("커스텀 구분자가 있으면 정확히 포함된 구분자 반환")
+        void shouldReturnCustomDelimiter_whenCustomDelimiterPresent() {
+            // given
+            String input = "//;\\n1;2;3";
+
+            // when
+            Delimiter delimiter = DelimiterResolver.resolve(input);
+
+            // then
+            assertThat(delimiter.getRegex()).contains(";").contains(",").contains(":");
+        }
     }
 
-    @Test
-    void 커스텀구분자가_있는_경우_정확히_반환() {
-        String input = "//;\\n1;2;3";
-        Delimiter delimiter = DelimiterResolver.resolve(input);
+    @Nested
+    @DisplayName("hasCustomDelimiter 메서드 테스트")
+    class HasCustomDelimiter {
 
-        assertThat(delimiter.getRegex()).contains(";").contains(",").contains(":");
+        @Test
+        @DisplayName("커스텀 구분자가 포함된 경우 true 반환")
+        void shouldReturnTrue_whenCustomDelimiterPresent() {
+            // when & then
+            assertThat(DelimiterResolver.hasCustomDelimiter("//;\\n1;2;3")).isTrue();
+            assertThat(DelimiterResolver.hasCustomDelimiter("//\\n1;2;3")).isTrue();
+        }
+
+        @Test
+        @DisplayName("커스텀 구분자가 없는 경우 false 반환")
+        void shouldReturnFalse_whenNoCustomDelimiter() {
+            // when & then
+            assertThat(DelimiterResolver.hasCustomDelimiter("1,2,3")).isFalse();
+        }
     }
-
-    @Test
-    void hasCustomDelimiter_메서드_테스트() {
-        assertThat(DelimiterResolver.hasCustomDelimiter("//;\\n1;2;3")).isTrue();
-        assertThat(DelimiterResolver.hasCustomDelimiter("1,2,3")).isFalse();
-        assertThat(DelimiterResolver.hasCustomDelimiter("//\\n1;2;3")).isTrue();
-    }
-
 }

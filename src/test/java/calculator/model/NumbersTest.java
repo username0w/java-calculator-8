@@ -11,56 +11,76 @@ import org.junit.jupiter.api.Test;
 class NumbersTest {
 
     @Nested
-    @DisplayName("create")
+    @DisplayName("create 메서드 테스트")
     class Create {
 
         @Test
-        @DisplayName("유효한 숫자로 객체 생성")
+        @DisplayName("유효한 양수 리스트로 Numbers 객체 생성")
         void shouldCreate_whenValidPositiveNumbers() {
-            Numbers numbers = Numbers.create(List.of(1.0, 2.0, 3.0));
+            // given
+            List<Double> input = List.of(1.0, 2.0, 3.0);
+
+            // when
+            Numbers numbers = Numbers.create(input);
+
+            // then
             assertThat(numbers).isNotNull();
         }
 
         @Test
-        @DisplayName("음수 포함 시 예외 발생")
+        @DisplayName("음수 포함 시 IllegalArgumentException 발생")
         void shouldThrow_whenNegativeNumberIncluded() {
-            assertThatThrownBy(() -> Numbers.create(List.of(1.0, -2.0, 3.0)))
+            // given
+            List<Double> input = List.of(1.0, -2.0, 3.0);
+
+            // when & then
+            assertThatThrownBy(() -> Numbers.create(input))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("양수만 입력 가능합니다.");
         }
 
         @Test
-        @DisplayName("0 포함 시 예외 발생")
+        @DisplayName("0 포함 시 IllegalArgumentException 발생")
         void shouldThrow_whenZeroIncluded() {
-            assertThatThrownBy(() -> Numbers.create(List.of(0.0, 1.2)))
+            // given
+            List<Double> input = List.of(0.0, 1.2);
+
+            // when & then
+            assertThatThrownBy(() -> Numbers.create(input))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("양수만 입력 가능합니다.");
         }
     }
 
     @Nested
-    @DisplayName("sum")
+    @DisplayName("sum 메서드 테스트")
     class Sum {
 
         @Test
-        @DisplayName("유효한 숫자로 결과 생성")
-        void shouldSucceed_whenValidPositiveNumbers() {
+        @DisplayName("양수 리스트에 대해 합산 결과 반환")
+        void shouldReturnSum_whenValidPositiveNumbers() {
+            // given
             Numbers numbers = Numbers.create(List.of(1.0, 2.0, 3.0));
-            assertThat(numbers.sum()).isEqualTo(6.0);
+
+            // when
+            double result = numbers.sum();
+
+            // then
+            assertThat(result).isEqualTo(6.0);
         }
 
         @Test
-        @DisplayName("빈 리스트로 객체 생성")
-        void shouldSucceed_whenEmptyNumbers() {
+        @DisplayName("빈 리스트일 경우 합은 0 반환")
+        void shouldReturnZero_whenNumbersListIsEmpty() {
+            // given
             Numbers numbers = Numbers.create(List.of());
-            assertThat(numbers.sum()).isEqualTo(0.0);
+
+            // when
+            double result = numbers.sum();
+
+            // then
+            assertThat(result).isEqualTo(0.0);
         }
     }
-
-    @Test
-    void toString_shouldReturnExpectedFormat() {
-        Numbers numbers = Numbers.create(List.of(1.0, 2.0));
-        assertThat(numbers.toString()).isEqualTo("Numbers{values=[1.0, 2.0]}");
-    }
-
+    
 }

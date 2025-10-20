@@ -2,40 +2,66 @@ package calculator.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class ParserTest {
 
-    @Test
-    void 기본_구분자_쉼표_콜론으로_분리() {
-        String input = "1,2:3";
-        String[] result = Parser.parse(input);
+    @Nested
+    @DisplayName("parse 메서드 테스트")
+    class Parse {
 
-        assertThat(result).containsExactly("1", "2", "3");
+        @Test
+        @DisplayName("기본 구분자 쉼표, 콜론으로 분리")
+        void shouldSplitByCommaAndColon_whenNoCustomDelimiter() {
+            // given
+            String input = "1,2:3";
+
+            // when
+            String[] result = Parser.parse(input);
+
+            // then
+            assertThat(result).containsExactly("1", "2", "3");
+        }
+
+        @Test
+        @DisplayName("커스텀 구분자로 분리")
+        void shouldSplitByCustomDelimiter_whenCustomDelimiterPresent() {
+            // given
+            String input = "//;\\n1;2;3";
+
+            // when
+            String[] result = Parser.parse(input);
+
+            // then
+            assertThat(result).containsExactly("1", "2", "3");
+        }
+
+        @Test
+        @DisplayName("커스텀 구분자가 없는 경우 입력 그대로 분리")
+        void shouldSplitByDefaultDelimiters_whenNoCustomDelimiter() {
+            // given
+            String input = "4,5,6";
+
+            // when
+            String[] result = Parser.parse(input);
+
+            // then
+            assertThat(result).containsExactly("4", "5", "6");
+        }
+
+        @Test
+        @DisplayName("빈 문자열 입력 시 빈 문자열 배열 반환")
+        void shouldReturnEmptyStringArray_whenInputIsEmpty() {
+            // given
+            String input = "";
+
+            // when
+            String[] result = Parser.parse(input);
+
+            // then
+            assertThat(result).containsExactly("");
+        }
     }
-
-    @Test
-    void 커스텀_구분자_분리() {
-        String input = "//;\\n1;2;3";
-        String[] result = Parser.parse(input);
-
-        assertThat(result).containsExactly("1", "2", "3");
-    }
-
-    @Test
-    void 커스텀_구분자가_없는_경우_입력_그대로_분리() {
-        String input = "4,5,6";
-        String[] result = Parser.parse(input);
-
-        assertThat(result).containsExactly("4", "5", "6");
-    }
-
-    @Test
-    void 빈_문자열_입력_시_빈_문자열_배열_반환() {
-        String input = "";
-        String[] result = Parser.parse(input);
-
-        assertThat(result).containsExactly("");
-    }
-
 }
