@@ -1,5 +1,6 @@
 package calculator.view;
 
+import calculator.exception.ErrorMessage;
 import camp.nextstep.edu.missionutils.Console;
 
 public class ConsoleInputView implements InputView {
@@ -14,7 +15,7 @@ public class ConsoleInputView implements InputView {
 
     private static void checkInputIsNull(String input) {
         if (input == null) {
-            throw new IllegalArgumentException("입력값이 null 입니다.");
+            throw new IllegalArgumentException(ErrorMessage.INPUT_NULL);
         }
     }
 

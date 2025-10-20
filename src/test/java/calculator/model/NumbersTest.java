@@ -3,6 +3,7 @@ package calculator.model;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import calculator.exception.ErrorMessage;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -36,7 +37,7 @@ class NumbersTest {
             // when & then
             assertThatThrownBy(() -> Numbers.create(input))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("양수만 입력 가능합니다.");
+                    .hasMessageContaining(ErrorMessage.NON_POSITIVE);
         }
 
         @Test
@@ -48,7 +49,7 @@ class NumbersTest {
             // when & then
             assertThatThrownBy(() -> Numbers.create(input))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("양수만 입력 가능합니다.");
+                    .hasMessageContaining(ErrorMessage.NON_POSITIVE);
         }
     }
 
@@ -82,5 +83,5 @@ class NumbersTest {
             assertThat(result).isEqualTo(0.0);
         }
     }
-    
+
 }

@@ -1,5 +1,6 @@
 package calculator.converter;
 
+import calculator.exception.ErrorMessage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class NumberConverter {
             try {
                 result.add(Double.parseDouble(s));
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("문자는 숫자로 변환할 수 없습니다.");
+                throw new IllegalArgumentException(ErrorMessage.NOT_A_NUMBER);
             }
         }
         return result;

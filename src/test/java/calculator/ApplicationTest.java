@@ -4,6 +4,7 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import calculator.exception.ErrorMessage;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -106,7 +107,7 @@ class ApplicationTest extends NsTest {
         void shouldThrowException_whenZeroIsInput(String input) {
             assertThatThrownBy(() -> run(input))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("양수만 입력 가능합니다");
+                    .hasMessageContaining(ErrorMessage.NON_POSITIVE);
         }
 
         @Test
@@ -115,7 +116,7 @@ class ApplicationTest extends NsTest {
             assertSimpleTest(() -> {
                 assertThatThrownBy(() -> runException("-1,2,3"))
                         .isInstanceOf(IllegalArgumentException.class)
-                        .hasMessageContaining("양수만 입력 가능합니다.");
+                        .hasMessageContaining(ErrorMessage.NON_POSITIVE);
             });
         }
 
@@ -125,7 +126,7 @@ class ApplicationTest extends NsTest {
             assertSimpleTest(() -> {
                 assertThatThrownBy(() -> run("//;!\\n1,5:3"))
                         .isInstanceOf(IllegalArgumentException.class)
-                        .hasMessageContaining("한 개의 문자로");
+                        .hasMessageContaining(ErrorMessage.INVALID_DELIMITER);
             });
         }
 
@@ -135,7 +136,7 @@ class ApplicationTest extends NsTest {
             assertSimpleTest(() -> {
                 assertThatThrownBy(() -> run("//;\\n1,3;12//#\\n#2"))
                         .isInstanceOf(IllegalArgumentException.class)
-                        .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
+                        .hasMessageContaining(ErrorMessage.NOT_A_NUMBER);
             });
         }
 
@@ -145,7 +146,7 @@ class ApplicationTest extends NsTest {
             assertSimpleTest(() -> {
                 assertThatThrownBy(() -> run("3, ,12"))
                         .isInstanceOf(IllegalArgumentException.class)
-                        .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
+                        .hasMessageContaining(ErrorMessage.NOT_A_NUMBER);
             });
         }
     }

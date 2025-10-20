@@ -3,6 +3,7 @@ package calculator.converter;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import calculator.exception.ErrorMessage;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -75,7 +76,7 @@ class NumberConverterTest {
             // when & then
             assertThatThrownBy(() -> NumberConverter.toDoubles(input))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
+                    .hasMessageContaining(ErrorMessage.NOT_A_NUMBER);
         }
 
         @Test
@@ -87,7 +88,7 @@ class NumberConverterTest {
             // when & then
             assertThatThrownBy(() -> NumberConverter.toDoubles(input))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("문자는 숫자로 변환할 수 없습니다.");
+                    .hasMessageContaining(ErrorMessage.NOT_A_NUMBER);
         }
     }
 }

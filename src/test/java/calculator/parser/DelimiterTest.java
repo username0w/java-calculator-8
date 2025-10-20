@@ -3,6 +3,7 @@ package calculator.parser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import calculator.exception.ErrorMessage;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -46,7 +47,7 @@ class DelimiterTest {
             // when & then
             assertThatThrownBy(() -> new Delimiter(List.of(";;")))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("커스텀 구분자는 한 개의 문자로 구성됩니다.");
+                    .hasMessage(ErrorMessage.INVALID_DELIMITER);
         }
 
         @Test

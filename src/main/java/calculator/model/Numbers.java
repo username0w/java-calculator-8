@@ -1,5 +1,6 @@
 package calculator.model;
 
+import calculator.exception.ErrorMessage;
 import java.util.List;
 
 public class Numbers {
@@ -18,7 +19,7 @@ public class Numbers {
     private static void validateNumbers(List<Double> numbers) {
         for (Double number : numbers) {
             if (number <= 0.0) {
-                throw new IllegalArgumentException("양수만 입력 가능합니다.");
+                throw new IllegalArgumentException(ErrorMessage.NON_POSITIVE);
             }
         }
     }

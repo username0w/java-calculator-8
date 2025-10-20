@@ -1,11 +1,13 @@
 package calculator.parser;
 
+import calculator.exception.ErrorMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Delimiter {
+
     private static final List<String> DEFAULT = List.of(",", ":");
     private final List<String> custom;
 
@@ -13,7 +15,7 @@ public class Delimiter {
         List<String> validated = custom == null ? List.of() : custom;
 
         if (validated.stream().anyMatch(d -> d.length() != 1)) {
-            throw new IllegalArgumentException("커스텀 구분자는 한 개의 문자로 구성됩니다.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DELIMITER);
         }
         this.custom = validated;
     }
