@@ -7,7 +7,7 @@ public class ConsoleInputView implements InputView {
 
     @Override
     public String readInput() {
-        System.out.println("덧셈할 문자열을 입력해 주세요.");
+        System.out.println(Messages.INPUT_PROMPT);
         String input = Console.readLine();
         checkInputIsNull(input);
         return input;
