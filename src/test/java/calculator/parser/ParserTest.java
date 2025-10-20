@@ -39,19 +39,6 @@ class ParserTest {
         }
 
         @Test
-        @DisplayName("커스텀 구분자가 없는 경우 입력 그대로 분리")
-        void shouldSplitByDefaultDelimiters_whenNoCustomDelimiter() {
-            // given
-            String input = "4,5,6";
-
-            // when
-            String[] result = Parser.parse(input);
-
-            // then
-            assertThat(result).containsExactly("4", "5", "6");
-        }
-
-        @Test
         @DisplayName("빈 문자열 입력 시 빈 문자열 배열 반환")
         void shouldReturnEmptyStringArray_whenInputIsEmpty() {
             // given

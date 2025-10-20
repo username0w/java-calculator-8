@@ -61,7 +61,7 @@ class ApplicationTest extends NsTest {
         @DisplayName("커스텀 구분자(.)를 사용한 경우 합을 반환한다")
         void shouldReturnSum_whenUsingDotAsCustomDelimiter() {
             // given
-            String input = "//.\\n12,20,23,5";
+            String input = "//.\\n12.20.23,5";
 
             // when & then
             assertSimpleTest(() -> {
